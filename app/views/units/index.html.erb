@@ -1,0 +1,25 @@
+<h1>Choice Units</h1>
+
+<%= render "form" %>
+<br>
+<br>
+  age: <%= @age %>
+<br>
+  salary: <%= @salary %>
+<br>
+  growth: <%= @growth %>
+<br>
+  weight: <%= @weight %>
+<br>
+<%= @sql_conditions %>
+<br><br>
+
+<%= @params %>
+
+<br>
+
+<% @units.each do |unit| %>
+  <%= unit.age %> | <%= unit.salary %> | <%= unit.growth %> | <%= unit.weight %> <br>
+<% end %>
+
+<%= debug(params) if Rails.env.development? %>
