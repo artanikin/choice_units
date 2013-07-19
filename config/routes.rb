@@ -1,6 +1,6 @@
 ChoiceUnits::Application.routes.draw do
   root to: 'units#index', as: 'units'
 
-  get '/filter' => 'units#filtering'
+  get '/filter(/:age_from)' => 'units#filtering'
 
 end

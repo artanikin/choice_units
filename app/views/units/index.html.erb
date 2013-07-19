@@ -1,21 +1,16 @@
 <h1>Choice Units</h1>
 
 <%= render "form" %>
-<br>
-<br>
-  age: <%= @age %>
-<br>
-  salary: <%= @salary %>
-<br>
-  growth: <%= @growth %>
-<br>
-  weight: <%= @weight %>
-<br>
-<%= @sql_conditions %>
-<br><br>
 
-<%= @params %>
 
+<br><%= @conditions %> <br>
+<br><%= @print %> <br>
+
+<br>
+<br>
+<pre style="border: 1px dashed #999; padding: 20px; background: #ccc">
+  <%= @test_data %>
+</pre>
 <br>
 
 <% @units.each do |unit| %>

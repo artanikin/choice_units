@@ -1,27 +1,9 @@
-<%= form_tag("/filter", method: 'get') do %>
+<%= form_tag("/", method: 'get') do %>
     <em>Возраст:</em>
-    <%= label :age_from, "от" %>
-    <%= text_field :age_from, nil, size: 3, maxlength: 3 %>
-    <%= label :age_to, "до" %>
-    <%= text_field :age_to, nil, size: 3, maxlength: 3 %>
-    <br>
-    <em>Зарплата:</em>
-    <%= label :salary_from, "от" %>
-    <%= text_field :salary_from, nil, size: 7, maxlength: 7 %>
-    <%= label :salary_to, "до" %>
-    <%= text_field :salary_to, nil, size: 7, maxlength: 7 %>
-    <br>
-    <em>Рост:</em>
-    <%= label :growth_from, "от" %>
-    <%= text_field :growth_from, nil, size: 7, maxlength: 7 %>
-    <%= label :growth_to, "до" %>
-    <%= text_field :growth_to, nil, size: 7, maxlength: 7 %>
-    <br>
-    <em>Вес:</em>
-    <%= label :weight_from, "от" %>
-    <%= text_field :weight_from, nil, size: 7, maxlength: 7 %>
-    <%= label :weight_to, "до" %>
-    <%= text_field :weight_to, nil, size: 7, maxlength: 7 %>
-    <br><br>
+    <%= label_tag "age[start]", "от" %>
+    <%= text_field_tag "age[start]", nil, size: 3, maxlength: 3 %>
+    <%= label_tag "age[stop]", "до" %>
+    <%= text_field_tag "age[stop]", nil, size: 3, maxlength: 3 %>
+    
     <%= submit_tag "Фильтровать" %>
 <% end %>
