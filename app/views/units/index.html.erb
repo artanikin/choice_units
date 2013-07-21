@@ -2,19 +2,13 @@
 
 <%= render "form" %>
 
-
-<br><%= @conditions %> <br>
-<br><%= @print %> <br>
-
 <br>
 <br>
-<pre style="border: 1px dashed #999; padding: 20px; background: #ccc">
-  <%= @test_data %>
-</pre>
 <br>
-
 <% @units.each do |unit| %>
   <%= unit.age %> | <%= unit.salary %> | <%= unit.growth %> | <%= unit.weight %> <br>
 <% end %>
-
+<br>
+<br>
+<br>
 <%= debug(params) if Rails.env.development? %>
