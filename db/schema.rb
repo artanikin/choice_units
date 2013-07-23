@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130714173344) do
+ActiveRecord::Schema.define(:version => 20130723085242) do
 
   create_table "units", :force => true do |t|
-    t.integer  "age"
-    t.integer  "salary"
-    t.integer  "growth"
-    t.integer  "weight"
+    t.integer  "age",        :limit => 100,     :default => 0, :null => false
+    t.integer  "salary",     :limit => 1000000, :default => 0, :null => false
+    t.integer  "growth",     :limit => 200,     :default => 0, :null => false
+    t.integer  "weight",     :limit => 200,     :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
