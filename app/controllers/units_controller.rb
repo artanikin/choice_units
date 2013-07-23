@@ -5,7 +5,9 @@ class UnitsController < ApplicationController
     @units = Unit.paginate(page: params[:page])
   end
 
-
+  # Принимает значения для фильтрации
+  # Выводит отфильтрованные объекты, взависимости от
+  # введенных значений
   def filtered
     possible_values = set_possible_values
     @input_values = get_input_values(params)
