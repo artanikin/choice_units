@@ -1,9 +1,35 @@
-<%= form_tag("/", method: 'get') do %>
-    <em>Возраст:</em>
-    <%= label_tag "age[start]", "от" %>
-    <%= text_field_tag "age[start]", nil, size: 3, maxlength: 3 %>
-    <%= label_tag "age[stop]", "до" %>
-    <%= text_field_tag "age[stop]", nil, size: 3, maxlength: 3 %>
+<%= form_tag("/filtered_by", method: 'get', class: 'filter-form form-inline') do %>
+    <div class="control-group">
+      
+      <%= label_tag "age[start]", "Возраст:", class: 'first_label' %>
+      <%= text_field_tag "age[start]", @input_values[:age][:start], class: 'span3', size: 3, maxlength: 3 %>
+      <%= label_tag "age[stop]", "-" %>
+      <%= text_field_tag "age[stop]", @input_values[:age][:stop], class: 'span3', size: 3, maxlength: 3 %>
+      
+    </div>
+
+    <div class="control-group">
+      <%= label_tag "growth[start]", "Рост:", class: 'first_label' %>
+      <%= text_field_tag "growth[start]", @input_values[:growth][:start], class: 'span3', size: 3, maxlength: 3 %>
+      <%= label_tag "growth[stop]", "-" %>
+      <%= text_field_tag "growth[stop]", @input_values[:growth][:stop], class: 'span3', size: 3, maxlength: 3 %>
+    </div>
+
+    <div class="control-group">
+      <%= label_tag "weight[start]", "Вес:", class: 'first_label' %>
+      <%= text_field_tag "weight[start]", @input_values[:weight][:start], class: 'span3', size: 3, maxlength: 3 %>
+      <%= label_tag "weight[stop]", "-" %>
+      <%= text_field_tag "weight[stop]", @input_values[:weight][:stop], class: 'span3', size: 3, maxlength: 3 %>
+    </div>
     
-    <%= submit_tag "Фильтровать" %>
+    <div class="control-group">
+      <%= label_tag "salary[start]", "Зарплата:", class: 'first_label' %>
+      <%= text_field_tag "salary[start]", @input_values[:salary][:start], class: 'span4', size: 7, maxlength: 7 %>
+      <%= label_tag "salary[stop]", "-" %>
+      <%= text_field_tag "salary[stop]", @input_values[:salary][:stop], class: 'span4', size: 7, maxlength: 7 %>
+    </div>
+    <br>
+    <div class="control-group" style="text-align:center;">
+      <%= submit_tag "Фильтровать", class: "btn btn-primary" %>
+    </div>
 <% end %>

@@ -1,14 +1,30 @@
-<h1>Choice Units</h1>
+<div class="row-fluid">
+  <div class="span3">
+    <%= render "form" %>
+  </div>
+  <div class="span9">
+    <%= will_paginate %>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <td>Age</td>
+          <td>Salary</td>
+          <td>Growth</td>
+          <td>Weight</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @units.each do |unit| %>
+          <tr>
+            <td><%= unit.age %></td>
+            <td><%= unit.salary %></td>
+            <td><%= unit.growth %></td>
+            <td><%= unit.weight %></td>
+          </tr>
+        <% end %>
+      </tbody>
 
-<%= render "form" %>
-
-<br>
-<br>
-<br>
-<% @units.each do |unit| %>
-  <%= unit.age %> | <%= unit.salary %> | <%= unit.growth %> | <%= unit.weight %> <br>
-<% end %>
-<br>
-<br>
-<br>
-<%= debug(params) if Rails.env.development? %>
+    </table>
+    <%= will_paginate %>
+  </div>
+</div>

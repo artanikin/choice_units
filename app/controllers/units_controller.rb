@@ -1,121 +1,59 @@
 class UnitsController < ApplicationController 
 
   def index
-
-    params[:age] =    { start: '20',    stop: '26'     }
-    params[:salary] = { start: '1000', stop: '7000000' }
-    params[:growth] = { start: '0',   stop: '220.4'    }
-    params[:weight] = { start: '80',    stop: '100'     }
+    @input_values = set_default_values
+    @units = Unit.paginate(page: params[:page])
+  end
 
 
-    possible_values = { age:    { start: 0, stop: 100 },
-                        salary: { start: 0, stop: 1000000 },
-                        growth: { start: 0, stop: 200 },
-                        weight: { start: 0, stop: 200 } }
-    input_values = {}
-    input_values[:age]    = params[:age]    if params[:age]
-    input_values[:salary] = params[:salary] if params[:salary]
-    input_values[:growth] = params[:growth] if params[:growth]
-    input_values[:weight] = params[:weight] if params[:weight]
+  def filtered
+    possible_values = set_possible_values
+    @input_values = get_input_values(params)
 
-    filter = Filter2.new(possible_values, input_values)
+    filter = Filter.new(possible_values, @input_values)
     filtered_data = filter.get_filtered_data
-    @units = Unit.filter(filtered_data)
-  end
 
- 
-end
-
-class Filter2
-
-  def initialize(possible_values, input_values)
-    @possible_values = possible_values
-    @input_values    = input_values
-  end
-
-
-  def get_filtered_data
-    set_string_values_to_integer!
-    set_value_in_possible_range!
-    get_sorted_data_by_percentage
+    @units = Unit.filter_by(filtered_data).paginate(page: params[:page])
+    render 'index'
   end
 
 
   private
 
-    def get_sorted_data_by_percentage
-      set_percentage_entering_values_in_range!
-      sort_data_by_percentage
+    # Устанавливает фильтру значения по умолчанию
+    def set_default_values
+      values = set_possible_values
+      default_range = { start: '', stop: '' }
+      values.each { |column, range| values[column] = default_range }
+      values
     end
 
 
-    def set_percentage_entering_values_in_range!
-      @input_values.each do |column, value_range|  
-        difference_entered_values  = value_range['stop'] - value_range['start']
-        difference_possible_values = @possible_values[column][:stop] - @possible_values[column][:start]
-        @input_values[column]['percent'] = difference_entered_values*100.0 / difference_possible_values
-      end
-      @input_values
+    # Устнавливает диапазон фозможных значений для фильтра
+    def set_possible_values
+      possible_values = { 
+        age:    { start: 0, stop: 100     },
+        salary: { start: 0, stop: 1000000 },
+        growth: { start: 0, stop: 200     },
+        weight: { start: 0, stop: 200     } }
     end
 
 
-    def sort_data_by_percentage
-      @input_values.sort_by { |column, value_range| value_range['percent'] }
-    end
+    # Получает диапазоны значений для фильтрации данных из
+    # параметров, принятых из GET запроса. 
+    # Для параметров, диапазоны которых небыли введены, 
+    # устанавливает заглушку
+    def get_input_values(params)
+      possible_column = set_possible_values.keys
+      input_values = {}
 
-
-    def set_string_values_to_integer!
-      result_values = {}
-
-      @input_values.each do |column, value_range|
-        range_column = {}
-
-        value_range.each do |key, value|
-          if value.is_integer?
-            range_column[key] = value.to_f.round
-          else
-            range_column[key] = @possible_values[column][key]
-          end
-          result_values[column] = range_column
+      possible_column.each do |column|
+        if params[column]
+          input_values[column] = params[column]  
+        else
+          input_values[column] = { start: '', stop: '' }
         end
       end
-      @input_values = result_values
+      input_values
     end
-
-
-    def set_value_in_possible_range!
-      result_values = {}
-
-      @input_values.each do |column, value_range|
-        range_possible_values = @possible_values[column][:start]..@possible_values[column][:stop]
-        range_column = {}
-
-        value_range.each do |key, value|
-          unless range_possible_values.include? value
-              range_column[key] = if value < range_possible_values.first
-                range_possible_values.first
-              else
-                range_possible_values.last
-              end
-          else
-            range_column[key] = value
-          end
-        end
-        result_values[column] = sort_input_range(range_column)
-      end
-      @input_values = result_values
-      end
-
-
-    def sort_input_range(input_range)
-      result = {}
-      if input_range['start'] > input_range['stop']
-        result['start'] = input_range['stop']
-        result['stop']  = input_range['start']
-      else
-        result = input_range
-      end
-      result
-    end
-
 end

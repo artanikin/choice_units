@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.12'
 gem 'jquery-rails'
+gem 'bootstrap-sass'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'sqlite3'
