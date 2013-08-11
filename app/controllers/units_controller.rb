@@ -3,6 +3,7 @@ class UnitsController < ApplicationController
   def index
     @input_values = set_default_values
     @units = Unit.paginate(page: params[:page])
+    flash[:danger] = "Base is empty. Use command \"rake db:seed\"." if @units.empty? 
   end
 
   # Принимает значения для фильтрации

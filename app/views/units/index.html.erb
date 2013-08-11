@@ -4,28 +4,30 @@
     <%= render "form" %>
   </div>
   <div class="span9">
-    <%= will_paginate %>
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <td>Age</td>
-          <td>Salary</td>
-          <td>Growth</td>
-          <td>Weight</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @units.each do |unit| %>
+    <% unless @units.empty? %>
+      <%= will_paginate %>
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
           <tr>
-            <td><%= unit.age %></td>
-            <td><%= unit.salary %></td>
-            <td><%= unit.growth %></td>
-            <td><%= unit.weight %></td>
+            <td>Age</td>
+            <td>Salary</td>
+            <td>Growth</td>
+            <td>Weight</td>
           </tr>
-        <% end %>
-      </tbody>
+        </thead>
+        <tbody>
+          <% @units.each do |unit| %>
+            <tr>
+              <td><%= unit.age %></td>
+              <td><%= unit.salary %></td>
+              <td><%= unit.growth %></td>
+              <td><%= unit.weight %></td>
+            </tr>
+          <% end %>
+        </tbody>
 
-    </table>
-    <%= will_paginate %>
+      </table>
+      <%= will_paginate %>
+    <% end %>
   </div>
 </div>
